@@ -1,39 +1,36 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import "../styles/global.css";
+import { Provider } from "react-redux";
+import { store } from "@/redux/store";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import HomePage from ".";
+import UserDetails from "./userDetails";
+import UserRepositories from "./userRepositories";
+import { Text } from "react-native";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+const Stack = createNativeStackNavigator();
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
+export default function Layout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Provider store={store}>
+      <Stack.Navigator initialRouteName="index">
+        <Stack.Screen
+          name="index"
+          component={HomePage}
+          options={{ headerTitle: "Home" }}
+        />
+        <Stack.Screen
+          name="userDetails"
+          component={UserDetails}
+          options={{ headerTitle: "User Details" }}
+        />
+        <Stack.Screen
+          name="userRepositories"
+          component={UserRepositories}
+          options={{
+            headerTitle: "Repositories",
+          }}
+        />
+      </Stack.Navigator>
+    </Provider>
   );
 }
