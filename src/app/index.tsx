@@ -2,28 +2,24 @@ import { Text, TextInput, TouchableOpacity, Image, View } from "react-native";
 import AvatarImage from "../../src/assets/images/avatar.webp";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { getUSer } from "@/redux/actions";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { AppDispatch, RootState } from "@/redux/store";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { AppDispatch } from "@/redux/store";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export default function HomePage() {
   const dispatch = useDispatch<AppDispatch>();
   const [username, setUsername] = useState("");
-  const [inputValue, setInputValue] = useState("");
-  const user = useSelector((state: RootState) => state.user);
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
   const handleFindUser = () => {
-    setUsername(inputValue);
-    setInputValue("");
+    dispatch(getUSer(username)).then((response) => {
+      const user = response.payload;
+      navigation.navigate("userDetails", { user });
+      console.log(user);
+    });
   };
-
-  useEffect(() => {
-    if (username) {
-      dispatch(getUSer(username)).then((response) => {
-        console.log(response);
-      });
-    }
-  }, [username]);
 
   return (
     <View className=" bg-white px-6 py-3 h-full">
@@ -51,8 +47,8 @@ export default function HomePage() {
               <TextInput
                 placeholder="Type a Github username"
                 className="flex-1 text-base text-gray-600"
-                value={inputValue}
-                onChangeText={(text) => setInputValue(text)}
+                value={username}
+                onChangeText={(text) => setUsername(text)}
               />
               <Icon
                 className="text-lg text-gray-500"

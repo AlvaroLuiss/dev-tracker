@@ -1,7 +1,12 @@
+import { ReactNode } from "react";
+
 export interface SimpleUser {
+    followers: ReactNode;
+    following: ReactNode;
     name?: string | null;
     email?: string | null;
     login: string;
+    bio: string | null;
     id: number;
     node_id: string;
     avatar_url: string;
