@@ -1,17 +1,52 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { useRoute } from "@react-navigation/native";
-import { SimpleUser } from "@/types/apiTypes";
-import AvatarImage from "../../src/assets/images/avatar.webp";
+import { MinimalRepository, SimpleUser } from "@/types/apiTypes";
+import { useDispatch } from "react-redux";
+import { AppDispatch, store } from "@/redux/store";
+import { getUserRepositories } from "@/redux/actions";
+import { useNavigation } from "expo-router";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useState } from "react";
+import { repositoriesSlice } from "@/redux/repositoriesSlice";
 
 export default function UserDetails() {
+  const dispatch = useDispatch<AppDispatch>();
   const route = useRoute();
-  const { user } = route.params as { user: SimpleUser };
+
+  const { user } = store.getState().user;
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
+
+  if (!user) {
+    return (
+      <View>
+        <Text>Não Encontrado</Text>
+      </View>
+    );
+  }
+
+  const { setRepositories } = repositoriesSlice.actions;
+  const handleGoToRepositories = () => {
+    dispatch(getUserRepositories(user.login)).then((response) => {
+      const repositories = response.payload as Array<MinimalRepository>;
+
+      setRepositories(repositories);
+
+      const { repositories: repos } = store.getState().repositories;
+      console.log(repos);
+      navigation.navigate("userRepositories");
+    });
+  };
+
   return (
-    <View className=" bg-white ">
+    <View className=" bg-white h-full ">
       <View className=" flex flex-col gap-2">
         <Image
-          source={AvatarImage}
-          className="max-h-52 max-w-[320px] object-center"
+          source={{
+            uri: user.avatar_url,
+          }}
+          style={{ width: "100%", height: 208 }}
+          height={208}
+          className="h-52 object-center"
         />
         <View className="px-5 gap-3">
           <View className=" gap-3">
@@ -44,7 +79,7 @@ export default function UserDetails() {
             </View>
           </View>
           <View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleGoToRepositories}>
               <Text className="text-center text-white font-medium text-lg h-14 bg-green-400 rounded-lg items-center flex justify-center">
                 See repositories
               </Text>

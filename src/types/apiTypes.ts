@@ -36,7 +36,7 @@ export interface SimpleUser {
     html_url: string | null
   }
   
-  type MinimalRepository = {
+  export interface MinimalRepository {
     id: number
     node_id: string
     name: string

@@ -7,33 +7,25 @@ import { useState } from "react";
 import { AppDispatch } from "@/redux/store";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { userSlice } from "@/redux/userSlice";
+import { SimpleUser } from "@/types/apiTypes";
 
 export default function HomePage() {
   const dispatch = useDispatch<AppDispatch>();
   const [username, setUsername] = useState("");
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
+  const { setUser } = userSlice.actions;
   const handleFindUser = () => {
     dispatch(getUSer(username)).then((response) => {
-      const user = response.payload;
-      navigation.navigate("userDetails", { user });
-      console.log(user);
+      const user: SimpleUser = response.payload as SimpleUser;
+      dispatch(setUser(user));
+      navigation.navigate("userDetails");
     });
   };
 
   return (
     <View className=" bg-white px-6 py-3 h-full">
-      <View className="flex-row justify-between max-h-10">
-        <TouchableOpacity className="flex">
-          <View className="w-8 h-8 rounded-full flex items-center justify-center">
-            <Icon name="menu" className="text-lg" size={24}></Icon>
-          </View>
-        </TouchableOpacity>
-        <Image
-          source={AvatarImage}
-          className="max-w-10 max-h-10 rounded-full"
-        />
-      </View>
       <View className="flex flex-col mt-4 gap-40">
         <View>
           <View className="mt-10">
