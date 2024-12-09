@@ -3,7 +3,7 @@ import { store } from "@/redux/store";
 import { MinimalRepository } from "@/types/apiTypes";
 import { sortGitHubUserRepositories } from "@/utils/sortRepos";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Link } from "expo-router";
+import { ExternalPathString, Link } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   FlatList,
@@ -83,8 +83,6 @@ type OrderProps = {
 
 export default function UserRepositories() {
   const route = useRoute();
-
-  const navigation = useNavigation();
 
   const [repositories, setRepositories] = useState(
     store.getState().repositories.repositories
@@ -172,7 +170,7 @@ export default function UserRepositories() {
                   </View>
                   <View className="flex">
                     <Link
-                      href={`${item.html_url}`}
+                      href={item.html_url as ExternalPathString}
                       target="_blank"
                       className=" mt-2 "
                     >
