@@ -5,7 +5,7 @@ export const sortGitHubUserRepositories = (
     sortBy: 'stars' | 'forks' | 'updated_at' | 'size' | 'name' | 'created_at',
     order: 'asc' | 'desc',
   ) => {
-    const sortedRepositories = repositories.sort((a, b) => {
+    const sortedRepositories = [...repositories].sort((a, b) => {
       let comparison = 0
   
       switch (sortBy) {
@@ -40,3 +40,4 @@ export const sortGitHubUserRepositories = (
   
     return sortedRepositories
   }
+

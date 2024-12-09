@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getUSer } from './actions';
 import { SimpleUser } from "../../src/types/apiTypes";
 
@@ -14,15 +14,21 @@ const initialState: UserState = {
     error: null,
 };
 
-const userSlice = createSlice({
+export const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {}, 
-    extraReducers: (builder) => {
+    reducers: {
+        setUser: (state, action: PayloadAction<SimpleUser>) => {
+            state.user = action.payload;
+        },
+    },    extraReducers: (builder) => {
         builder
             .addCase(getUSer.pending, (state) => {
                 state.loading = true;
                 state.error = null;
+            }).addCase(getUSer.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = action.payload;
             })  
         },
 });
