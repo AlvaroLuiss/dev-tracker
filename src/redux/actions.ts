@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { GitHubUserRepositories, SimpleUser } from "../../src/types/apiTypes";
-import { sortGitHubUserRepositories } from "@/utils/sortRepos";
+import { sortGitHubUserRepositories } from "../../types/utils/sortRepos";
 
 const API_URL = "https://api.github.com/users/";
 
