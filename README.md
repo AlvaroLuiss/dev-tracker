@@ -1,50 +1,64 @@
-# Welcome to your Expo app 👋
+# Dev Tracker
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Uma aplicação mobile moderna construída com Expo e React Native.
 
-## Get started
+## 🚀 Tecnologias Principais
 
-1. Install dependencies
+- [Expo](~52.0.11) - Framework para desenvolvimento React Native
+- [React Native](0.76.3) - Framework para desenvolvimento mobile
+- [Redux Toolkit](2.4.0) - Gerenciamento de estado
+- [NativeWind](4.1.23) - Estilização com Tailwind
+- [TailwindCSS](3.4.16) - Framework CSS utilitário
 
-   ```bash
-   npm install
-   ```
+## 📱 Funcionalidades
 
-2. Start the app
+- Interface moderna: Desenvolvida com NativeWind/TailwindCSS para um design consistente.
+- Performance otimizada: Gerenciamento de estado eficiente com Redux Toolkit.
+- Navegação intuitiva: Implementação com React Navigation e Expo Router.
+- Código seguro: Desenvolvido utilizando TypeScript.
+- Design responsivo: Adaptado para diferentes resoluções e dispositivos.
+- Integração com APIs: Pronto para consumir serviços externos e processar dados.
+- Ambiente multiplataforma: Suporte para iOS, Android e web.
 
-   ```bash
-    npx expo start
-   ```
+## 🛠 Configuração
 
-In the output, you'll find options to open the app in a
+1. Pré-requisitos:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- Node.js 16+
+- PNPM
+- Expo CLI
+- Xcode (iOS) ou Android Studio (Android)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+2. Clone o repositório:
+   bash
+   git clone https://github.com/seu-usuario/dev-tracker.git
+   cd dev-tracker
 
-## Get a fresh project
+3. Instale as dependências:
+   bash
+   pnpm install
 
-When you're ready, run:
+4. Inicie o servidor de desenvolvimento:
+   bash
+   pnpm start
 
-```bash
-npm run reset-project
-```
+5. Execute no seu dispositivo:
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- iOS: pnpm ios
+- Android: pnpm android
+- Web: pnpm web
 
-## Learn more
+## 📁 Estrutura do Projeto
 
-To learn more about developing your project with Expo, look at the following resources:
+src/
+├── app/ # Telas e rotas (Expo Router)
+├── assets/ # Imagens, fontes e arquivos estáticos
+├── redux/ # Configuração Redux
+├── styles/ # Estilos globais
+├── types/ # Tipagens TypeScript
+└── utils/ # Funções utilitárias
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## 🔧 Desenvolvimento
 
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Ambiente de desenvolvimento com Expo
+- ESLint + Prettier para qualidade de código
